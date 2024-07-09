@@ -1,14 +1,31 @@
 package org.example;
 
+//enum Mood{
+//    HAPPY,SAD,EMPTY,NULL
+//}
 public class MoodAnalyser {
-    public static String analyseMood(String message){
-        if (message.contains("Sad")){
-            return "SAD";
+    private String message;
+
+    MoodAnalyser(){
+    }
+    public MoodAnalyser(String message){
+        this.message=message;
+    }
+    public String analyseMood() throws CustomException {
+        try {
+            if(message.isEmpty()){
+                throw new CustomException(CustomException.ExceptionType.EMPTY, "Empty String");
+            }
+            message = message.toLowerCase();
+            if (message.contains("sad")) {
+                return "SAD";
+            } else if (message.contains("happy")) {
+                return "HAPPY";
+            }
+            return "";
+        } catch (NullPointerException e) {
+            throw new CustomException(CustomException.ExceptionType.NULL, "NULL String");
         }
-        else if (message.contains("Happy")){
-            return "HAPPY";
-        }
-        return "";
     }
     public static void main(String[] args) {
     }
